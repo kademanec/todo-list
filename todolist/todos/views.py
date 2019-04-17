@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from .models import Todo
 
 def index(request):
-    todos=Todo.objects.all()[:10]
+    todos=Todo.objects.all()[:50]
     context={
     'todos':todos
     }
@@ -31,3 +31,25 @@ def add(request):
 
     else:
         return render(request,'partials/add.html')
+
+def edit(request,id):
+    print("id",id)
+    todos=Todo.objects.get(pk=int(id))
+    print todos
+    context={
+    'todos':todos,
+    'title':todos.title,
+    'text':todos.text
+    }
+    if(request.method == 'POST'):
+        print request.POST
+        title = request.POST['title']
+        text =request.POST['text']
+
+        todo = Todo(title=title, text=text)
+        todo.save()
+
+        return redirect('/todos')
+
+
+    return render(request,'partials/edit.html',context)
