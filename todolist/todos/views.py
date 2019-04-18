@@ -23,8 +23,10 @@ def add(request):
         print request.POST
         title = request.POST['title']
         text =request.POST['text']
-
-        todo = Todo(title=title, text=text)
+        email = request.POST['email']
+        city = request.POST['city']
+        date = request.POST['date']
+        todo = Todo(title=title, text=text, email=email,city=city, date=date)
         todo.save()
 
         return redirect('/todos')
@@ -39,15 +41,20 @@ def edit(request,id):
     context={
     'todos':todos,
     'title':todos.title,
-    'text':todos.text
+    'text':todos.text,
+    'email':todos.email,
+    'city':todos.city,
+    'date':todos.date
     }
+
     if(request.method == 'POST'):
         print request.POST
-        title = request.POST['title']
-        text =request.POST['text']
-
-        todo = Todo(title=title, text=text)
-        todo.save()
+        todos.title = request.POST['title']
+        todos.text =request.POST['text']
+        todos.email =request.POST['email']
+        todos.city = request.POST['city']
+        todos.date = request.POST['date']
+        todos.save()
 
         return redirect('/todos')
 
