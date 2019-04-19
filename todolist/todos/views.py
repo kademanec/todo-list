@@ -60,3 +60,26 @@ def edit(request,id):
 
 
     return render(request,'partials/edit.html',context)
+
+def delete(request,id):
+    print("id",id)
+    todos = Todo.objects.get(pk=id).delete()
+    # print todos
+    # # context={
+    # 'todos':todos,
+    # 'title':todos.title,
+    # 'text':todos.text,
+    # 'email':todos.email,
+    # 'city':todos.city,
+    # 'date':todos.date
+    # }
+    # if(request.method == 'POST'):
+    #     print request.POST
+    #     todos.title = request.POST['title']
+    #     todos.text =request.POST['text']
+    #     todos.email =request.POST['email']
+    #     todos.city = request.POST['city']
+    #     todos.date = request.POST['date']
+    #     todos.save()
+
+    return redirect('/todos')
